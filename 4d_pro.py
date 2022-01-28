@@ -18,7 +18,10 @@ json1={}
 entry_fin=defaultdict(int)
 
 for line in open(input_file,'r'):
-    entry = json.loads(line)
+    try:
+        entry = json.loads(line)
+    except ValueError as e:  # catches subclass JSONDecodeError
+        print(line)
     if ((entry["msg"] == "Slow query") and not(re.search("\$cmd",entry["attr"]["ns"]))):
         if(entry["attr"]["type"] == "command"):
             if ("find" in entry["attr"]["command"]):
