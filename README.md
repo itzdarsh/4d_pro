@@ -11,7 +11,7 @@ You should get output like below:
 
 
 ```
-MacBook-Pro-52:OMs darshanj$ /Users/darshanj/anaconda3/bin/python /Users/darshanj/Downloads/4D_PlusAnalyser/4d_pro.py /Users/darshanj/Downloads/4D_PlusAnalyser/sample.log 
+testbook-:OMs darshanj$ /Users/darshanj/anaconda3/bin/python /Users/darshanj/Downloads/4D_PlusAnalyser/4d_pro.py /Users/darshanj/Downloads/4D_PlusAnalyser/sample.log 
 Please enter sort key: 
 1. minTime
 2. maxTime
