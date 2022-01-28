@@ -18,10 +18,10 @@ json1={}
 entry_fin=defaultdict(int)
 
 for line in open(input_file,'r'):
-    if line not in ['\n', '\r\n']:
+    try:
         entry = json.loads(line)
-    else:
-        continue
+    except ValueError as e:  # catches subclass JSONDecodeError
+        print(line)
     if ((entry["msg"] == "Slow query") and not(re.search("\$cmd",entry["attr"]["ns"]))):
         if(entry["attr"]["type"] == "command"):
             if ("find" in entry["attr"]["command"]):
@@ -91,4 +91,3 @@ sa=[0,"minTime","maxTime","count","ns","typeOp"]
 print("{:80} {:15} {:100} {:6} {:10} {:8} {:8}".format("Namespace","Operation","Pattern","Count","totalTime(ms)","minTime(ms)","maxTime(ms)"))
 for key, val in sorted(entry_fin.items(), key = lambda x: getitem(x[1],sa[int(sort_key)]),reverse=True):
     print("{:80} {:15} {:100} {:6} {:10} {:8} {:8}".format(val['ns'],val['typeOp'],key,val['count'],val['totalTime'],val['minTime'],val['maxTime']))
-
