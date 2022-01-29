@@ -3,7 +3,13 @@ import json,re
 from collections import defaultdict
 from operator import getitem
 
-script,input_file = argv
+script = argv[0]
+input_file=1
+try:
+    input_file = argv[1]
+except IndexError:
+    while(type(input_file) is int):
+        input_file = input("usage:\n"+script+" <LOGFILE path> \nenter path of logfile:\n") or 1
 
 def flatten_command(dictKey):
     for newK in dictKey:
