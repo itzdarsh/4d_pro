@@ -35,6 +35,9 @@ for line in open(input_file,'r'):
             elif("distinct" in entry["attr"]["command"]):
                 json1=entry["attr"]["command"]['query']
                 entry["attr"]["typeOp"]="distinct"
+            elif("insert" in entry["attr"]["command"]):
+                json1={}
+                entry["attr"]["typeOp"]="insert"
             elif("findAndModify" in entry['attr']["command"]):
                 json1=entry["attr"]["command"]['query']
                 entry["attr"]["typeOp"]="findAndModify"
@@ -49,7 +52,7 @@ for line in open(input_file,'r'):
                         json1['pipeline'].update(i)
                     entry["attr"]["typeOp"]="getMoreAggr"
             else:
-                continue
+                print(entry)
                
         elif(entry["attr"]["type"] == "update" ):
             json1=entry["attr"]["command"]
@@ -58,7 +61,7 @@ for line in open(input_file,'r'):
             json1=entry["attr"]["command"]
             entry["attr"]["typeOp"]="remove"
         else:
-            continue
+            print(entry)
         for key in json1:
             if(type(json1[key]) is dict):
                 flatten_command(json1[key])
