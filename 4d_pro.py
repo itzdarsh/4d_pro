@@ -63,7 +63,7 @@ for line in open(input_file,'r'):
             if(type(json1[key]) is dict):
                 flatten_command(json1[key])
             else:
-                json1[key]="*"
+                json1[key]="1"
 
         #entry['surprise']=json1
 
