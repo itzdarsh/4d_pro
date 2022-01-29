@@ -66,7 +66,11 @@ for line in open(input_file,'r'):
                 json1[key]="*"
 
         #entry['surprise']=json1
-
+        if ('pipeline' in json1):
+            pl=[]
+            for key in json1['pipeline']:
+                pl.append({key:json1['pipeline'][key]})
+            json1['pipeline']=pl
         if not json1 in queryArr or entry_fin[str(json1)] is 0:
             entry_fin[str(json1)]= {'count':1}
             entry_fin[str(json1)].update({'ns':entry['attr']['ns'],'typeOp':entry["attr"]["typeOp"],'minTime':entry['attr']['durationMillis'],'totalTime':entry['attr']['durationMillis'],'maxTime':entry['attr']['durationMillis']})
