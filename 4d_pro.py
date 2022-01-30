@@ -39,7 +39,10 @@ for line in open(input_file,'r'):
                     json1['pipeline'].update(i)
                 entry["attr"]["typeOp"]="aggregate"
             elif("distinct" in entry["attr"]["command"]):
-                json1=entry["attr"]["command"]['query']
+                try:
+                    json1=entry["attr"]["command"]['query']
+                except KeyError:
+                    json1={'q':{}}
                 entry["attr"]["typeOp"]="distinct"
             elif("insert" in entry["attr"]["command"]):
                 json1={}
@@ -57,8 +60,9 @@ for line in open(input_file,'r'):
                     for i in entry["attr"]["originatingCommand"]['pipeline']:
                         json1['pipeline'].update(i)
                     entry["attr"]["typeOp"]="getMoreAggr"
-            else:
-                print(entry)
+            # commenting as avoid printing non belonging lines
+            # else:
+            #     print(entry) 
                
         elif(entry["attr"]["type"] == "update" ):
             json1=entry["attr"]["command"]
