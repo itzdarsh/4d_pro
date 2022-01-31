@@ -42,11 +42,15 @@ for line in open(input_file,'r'):
     try:
         entry = json.loads(line)
     except ValueError as e:  # catches subclass JSONDecodeError
-        print(line)
+        #print(line)
+        continue
     if ((entry["msg"] == "Slow query") and not(re.search("\$cmd",entry["attr"]["ns"]))):
         if(entry["attr"]["type"] == "command"):
             if ("find" in entry["attr"]["command"]):
-                json1=entry["attr"]["command"]['filter']
+                try:
+                    json1=entry["attr"]["command"]['filter']
+                except KeyError:
+                    json1={}
                 entry["attr"]["typeOp"]="find"
             elif("aggregate" in entry["attr"]["command"]):
                 json1={'pipeline':{}}
