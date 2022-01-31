@@ -11,17 +11,32 @@ except IndexError:
     while(type(input_file) is int):
         input_file = input("usage:\n"+script+" <LOGFILE path> \nenter path of logfile:\n") or 1
 
+queryArr=[]
+json1={}
+entry_fin=defaultdict(int)
+
 def flatten_command(dictKey):
     for newK in dictKey:
         if(type(dictKey[newK]) is dict):
             flatten_command(dictKey[newK])
+        elif(type(dictKey[newK]) is list):
+            u=0
+            for lent in range(len(dictKey[newK])):
+                if type(dictKey[newK][u]) is dict:
+                    flatten_command(dictKey[newK][u])
+                    u+=1  
+                else:
+                    dictKey[newK].pop(u)   
+            res = []
+            for i in dictKey[newK]:      
+                if i not in res:
+                    res.append(i)
+            dictKey[newK] = res
         else:
             dictKey[newK]='*'
     return(dictKey)
 
-queryArr=[]
-json1={}
-entry_fin=defaultdict(int)
+
 
 for line in open(input_file,'r'):
     try:
